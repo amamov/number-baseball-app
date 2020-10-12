@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { Image } from "react-native";
+import { Provider } from "react-redux";
 import { AppLoading } from "expo";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
-import { Image, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { store } from "./store";
+
+import Stack from "./navigation/Stack";
 
 const cacheImages = (images) =>
   images.map((image) => {
@@ -33,7 +38,15 @@ function App() {
   const onFinish = () => setIsReady(true);
 
   return isReady && fontLoaded ? (
-    <Text style={{ fontFamily: "NanumPenScript" }}>hello fucking world</Text>
+    // <Text style={{ fontFamily: "NanumPenScript" }}>hello fucking world</Text>
+    <>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack />
+        </NavigationContainer>
+        <StatusBar barStyle="light-content" />
+      </Provider>
+    </>
   ) : (
     <AppLoading
       startAsync={loadAssets}
