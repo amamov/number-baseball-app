@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components/native";
 import { Dimensions, Alert } from "react-native";
 import { connect } from "react-redux";
+import styled from "styled-components/native";
 import Record from "../components/Record";
+import Board from "../components/Board";
 import checkCountValue from "../funcs/checkCountValue";
 import problemFactory from "../funcs/problemFactory";
+import bullsAndCows from "../funcs/bullsAndCows";
+import { accumulate_success, accumulate_attempts, init_status } from "../store";
+import { loaded_data, clear_local_storage } from "../local_storage";
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get("screen");
 //////////////////// Style ////////////////////
@@ -34,17 +38,6 @@ const OutputBox = styled.View`
 const OutputText = styled.Text`
   font-size: 28px;
 `;
-
-const Board = styled.ScrollView`
-  width: 100%;
-  flex: 4;
-  /* height: ${HEIGHT / 2}; */
-  border: 1px solid gray;
-`;
-
-const Result = styled.View``;
-
-const Text = styled.Text``;
 
 const KeypadContainer = styled.View`
   width: 100%;
@@ -80,31 +73,45 @@ const Number = styled.Text`
 
 const deleteKey = "<";
 
-const bullsAndCows = (problem, answer) => {
-  const strike = 0;
-  const ball = 0;
-  return [strike, ball];
-};
-
-const ThreeBalls = () => {
+const ThreeBalls = ({
+  status,
+  dispatch_accumulate_success,
+  dispatch_accumulate_attempts,
+  dispatch_init_status,
+}) => {
   const [problem, setProblem] = useState(problemFactory(3));
   const [output, setOutput] = useState({ one: "", two: "", three: "" });
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    console.log(problem);
-  }, [problem]);
+    // clear_local_storage();
+    loaded_data._W && dispatch_init_status(loaded_data._W);
+  }, [dispatch_init_status]);
+
+  useEffect(() => {
+    // 개발 체크용
+    console.log("문제 : ", problem);
+    console.log(status);
+  }, [problem, status]);
 
   const onSubmit = () => {
     if (checkCountValue(output, "", 0)) {
       const answer = [output.one, output.two, output.three];
-      const [strike, ball] = bullsAndCows(problem, answer);
-      Alert.alert("answer", `${answer.join("")}`);
+      const [strike, ball, goal] = bullsAndCows(problem, answer);
+      // Alert.alert("answer", `${answer.join("")}`);
 
-      setResults((prev) => [
-        { answer: answer.join(""), strike, ball },
-        ...prev,
-      ]);
+      if (goal) {
+        setResults([]);
+        setProblem(problemFactory(3));
+        dispatch_accumulate_success();
+      } else {
+        setResults((prev) => [
+          { answer: answer.join(""), strike, ball, goal },
+          ...prev,
+        ]);
+        dispatch_accumulate_attempts();
+      }
+
       setOutput({ one: "", two: "", three: "" });
     }
   };
@@ -138,9 +145,11 @@ const ThreeBalls = () => {
     }
   };
 
+  const responseKeypad = (key) => checkCountValue(output, key, 0) && key;
+
   return (
     <Container>
-      <Record />
+      <Record success={status.success} avg_attempts={status.avg_attempts} />
 
       <Output>
         <OutputBox>
@@ -154,53 +163,47 @@ const ThreeBalls = () => {
         </OutputBox>
       </Output>
 
-      <Board>
-        {results.map((result, idx) => (
-          <Result key={idx}>
-            <Text>{result.answer}</Text>
-          </Result>
-        ))}
-      </Board>
+      <Board results={results} />
 
       <KeypadContainer>
         <Keypad>
-          <NumberBox onPressOut={() => inputNumber(1)}>
-            <Number>1</Number>
+          <NumberBox onPress={() => inputNumber(1)}>
+            <Number>{responseKeypad(1)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(2)}>
-            <Number>2</Number>
+          <NumberBox onPress={() => inputNumber(2)}>
+            <Number>{responseKeypad(2)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(3)}>
-            <Number>3</Number>
+          <NumberBox onPress={() => inputNumber(3)}>
+            <Number>{responseKeypad(3)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(4)}>
-            <Number>4</Number>
+          <NumberBox onPress={() => inputNumber(4)}>
+            <Number>{responseKeypad(4)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(5)}>
-            <Number>5</Number>
+          <NumberBox onPress={() => inputNumber(5)}>
+            <Number>{responseKeypad(5)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={onSubmit}>
+          <NumberBox onPress={onSubmit}>
             <Number>GO</Number>
           </NumberBox>
         </Keypad>
 
         <Keypad>
-          <NumberBox onPressOut={() => inputNumber(6)}>
-            <Number>6</Number>
+          <NumberBox onPress={() => inputNumber(6)}>
+            <Number>{responseKeypad(6)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(7)}>
-            <Number>7</Number>
+          <NumberBox onPress={() => inputNumber(7)}>
+            <Number>{responseKeypad(7)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(8)}>
-            <Number>8</Number>
+          <NumberBox onPress={() => inputNumber(8)}>
+            <Number>{responseKeypad(8)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(9)}>
-            <Number>9</Number>
+          <NumberBox onPress={() => inputNumber(9)}>
+            <Number>{responseKeypad(9)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(0)}>
-            <Number>0</Number>
+          <NumberBox onPress={() => inputNumber(0)}>
+            <Number>{responseKeypad(0)}</Number>
           </NumberBox>
-          <NumberBox onPressOut={() => inputNumber(deleteKey)}>
+          <NumberBox onPress={() => inputNumber(deleteKey)}>
             <Number>{deleteKey}</Number>
           </NumberBox>
         </Keypad>
@@ -209,12 +212,16 @@ const ThreeBalls = () => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {};
+const mapStateToProps = (state) => {
+  return { status: state };
 };
 
-const mapDispatchToProps = (state, ownProps) => {
-  return {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch_accumulate_success: () => dispatch(accumulate_success()),
+    dispatch_accumulate_attempts: () => dispatch(accumulate_attempts()),
+    dispatch_init_status: (data) => dispatch(init_status(data)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThreeBalls);

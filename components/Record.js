@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
+import PropTypes from "prop-types";
 
 const { width, height } = Dimensions.get("screen");
 //////////////////// Style ////////////////////
@@ -22,19 +23,24 @@ const Text = styled.Text``;
 const Data = styled.Text``;
 
 //////////////////// Components ////////////////////
-const Record = () => {
+const Record = ({ success, avg_attempts }) => {
   return (
     <Container>
       <View>
         <Text>성공 : </Text>
-        <Data>{"0"}회</Data>
+        <Data>{success}회</Data>
       </View>
       <View>
         <Text>평균 시도 : </Text>
-        <Data>{"0"}회</Data>
+        <Data>{avg_attempts}회</Data>
       </View>
     </Container>
   );
+};
+
+Record.propTypes = {
+  success: PropTypes.number.isRequired,
+  avg_attempts: PropTypes.number.isRequired,
 };
 
 export default Record;
