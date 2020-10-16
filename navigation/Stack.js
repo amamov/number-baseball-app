@@ -1,11 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-// import Home from "../screens/Home";
-// import Rules from "../screens/Rules";
+import Home from "../screens/Home";
+import Rules from "../screens/Rules";
 import ThreeBalls from "../screens/ThreeBalls";
-// import FourBalls from "../screens/FourBalls";
-// import FiveBalls from "../screens/FiveBalls";
-// import SixBalls from "../screens/SixBalls";
+import FourBalls from "../screens/FourBalls";
+import FiveBalls from "../screens/FiveBalls";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +15,6 @@ export default () => {
         gestureEnabled: false,
         headerShown: true,
         headerTransparent: false,
-        headerStatusBarHeight: 20,
         headerBackTitleVisible: false,
         headerTintColor: "black",
         headerStyle: {
@@ -25,7 +23,7 @@ export default () => {
         },
       }}
     >
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Home"
         component={Home}
         options={{
@@ -41,7 +39,7 @@ export default () => {
           headerStyle: { backgroundColor: "white" },
           headerTintColor: "gray",
         }}
-      /> */}
+      />
       <Stack.Screen
         name="ThreeBalls"
         component={ThreeBalls}
@@ -49,7 +47,7 @@ export default () => {
           headerTitle: "세 자리 야구",
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="FourBalls"
         component={FourBalls}
         options={{
@@ -63,13 +61,6 @@ export default () => {
           headerTitle: "다섯 자리 야구",
         }}
       />
-      <Stack.Screen
-        name="SixBalls"
-        component={SixBalls}
-        options={{
-          headerTitle: "여섯 자리 야구",
-        }}
-      /> */}
     </Stack.Navigator>
   );
 };

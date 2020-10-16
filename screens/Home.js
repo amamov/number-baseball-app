@@ -29,10 +29,6 @@ const Home = ({ navigation }) => {
         onPress={() => navigation.navigate("FiveBalls")}
         title="다섯 자리 야구"
       />
-      <GameButton
-        onPress={() => navigation.navigate("SixBalls")}
-        title="여섯 자리 야구"
-      />
       <RuleButton
         onPress={() => navigation.navigate("Rules")}
         title="게임 설명"
