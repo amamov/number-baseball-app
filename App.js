@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Image } from "react-native";
+import { Image, StatusBar } from "react-native";
 import { Provider } from "react-redux";
 import { AppLoading } from "expo";
-import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
@@ -20,9 +19,6 @@ const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
 
 function App() {
   const [isReady, setIsReady] = useState(false);
-  const [fontLoaded] = Font.useFonts({
-    NanumPenScript: require("./assets/NanumPenScript-Regular.ttf"),
-  });
 
   const loadAssets = () => {
     const images = cacheImages([
@@ -37,8 +33,7 @@ function App() {
 
   const onFinish = () => setIsReady(true);
 
-  return isReady && fontLoaded ? (
-    // <Text style={{ fontFamily: "NanumPenScript" }}>hello fucking world</Text>
+  return isReady ? (
     <>
       <Provider store={store}>
         <NavigationContainer>

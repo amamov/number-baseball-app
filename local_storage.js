@@ -12,11 +12,9 @@ const get_local_data = async () => {
     if (loaded_string_data) {
       const loaded_object_data = JSON.parse(loaded_string_data);
       return loaded_object_data;
-    } else {
-      return null;
     }
   } catch (error) {
-    console.log(error);
+    console.logt(error.message);
   }
 };
 

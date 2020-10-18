@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../screens/Home";
-import Rules from "../screens/Rules";
+import * as Font from "expo-font";
+import Tabs from "./Tabs";
 import ThreeBalls from "../screens/ThreeBalls";
 import FourBalls from "../screens/FourBalls";
 import FiveBalls from "../screens/FiveBalls";
@@ -9,56 +9,51 @@ import FiveBalls from "../screens/FiveBalls";
 const Stack = createStackNavigator();
 
 export default () => {
+  const [fontLoaded] = Font.useFonts({
+    BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
+  });
+
   return (
     <Stack.Navigator
-      screenOptions={{
-        gestureEnabled: false,
-        headerShown: true,
-        headerTransparent: false,
-        headerBackTitleVisible: false,
-        headerTintColor: "black",
-        headerStyle: {
-          backgroundColor: "white",
-          shadowColor: "#fff",
-        },
-      }}
+      mode="card"
+      screenOptions={
+        fontLoaded && {
+          gestureEnabled: false,
+          headerShown: true,
+          // headerTransparent: false,
+          headerBackTitleVisible: false,
+          headerTintColor: "white",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            fontFamily: "BlackHanSans",
+          },
+          headerStyle: {
+            backgroundColor: "black",
+            shadowColor: "black",
+          },
+        }
+      }
     >
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerTitle: "숫자 야구",
-        }}
-      />
-      <Stack.Screen
-        name="Rules"
-        component={Rules}
-        options={{
-          gestureEnabled: true,
-          headerTitle: "게임 설명",
-          headerStyle: { backgroundColor: "white" },
-          headerTintColor: "gray",
-        }}
-      />
+      <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen
         name="ThreeBalls"
         component={ThreeBalls}
         options={{
-          headerTitle: "세 자리 야구",
+          headerTitle: "Three Black Balls",
         }}
       />
       <Stack.Screen
         name="FourBalls"
         component={FourBalls}
         options={{
-          headerTitle: "네 자리 야구",
+          headerTitle: "Four Black Balls",
         }}
       />
       <Stack.Screen
         name="FiveBalls"
         component={FiveBalls}
         options={{
-          headerTitle: "다섯 자리 야구",
+          headerTitle: "Five Black Balls",
         }}
       />
     </Stack.Navigator>

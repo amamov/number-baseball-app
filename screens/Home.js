@@ -1,38 +1,81 @@
-import React from "react";
-import styled from "styled-components/native";
+import React, { useState } from "react";
 import { Dimensions } from "react-native";
+import Carousel from "react-native-snap-carousel";
+import styled from "styled-components/native";
+import MoveView from "../components/MoveView";
+import * as Font from "expo-font";
 
-const { width, height } = Dimensions.get("screen");
+const SLIDER_WIDTH = Dimensions.get("window").width;
+const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
+const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 5) / 4);
 
 //////////////////// Style ////////////////////
 
-// https://reactnative.dev/docs/animations --> transition 효과 참고하기
 const Container = styled.View``;
 
-const GameButton = styled.Button``;
+const ItemContainer = styled.View`
+  width: ${ITEM_WIDTH}px;
+  height: ${ITEM_HEIGHT}px;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border-radius: 25px;
+`;
 
-const RuleButton = styled.Button``;
+const GameButton = styled.TouchableOpacity`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Text = styled.Text`
+  color: white;
+  font-size: 20px;
+`;
 
 //////////////////// Components ////////////////////
+
+const DATA = [
+  { name: "ThreeBalls", title: "세 자리 야구", poster: "" },
+  { name: "FourBalls", title: "네 자리 야구", poster: "" },
+  { name: "FiveBalls", title: "다섯 자리 야구", poster: "" },
+];
+
 const Home = ({ navigation }) => {
+  const [fontLoaded] = Font.useFonts({
+    BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
+  });
+  const _renderItem = ({ item }) => {
+    return (
+      <ItemContainer>
+        <GameButton onPress={() => navigation.navigate(`${item.name}`)}>
+          <Text
+            style={fontLoaded && { fontFamily: "BlackHanSans" }}
+          >{`${item.title}`}</Text>
+        </GameButton>
+      </ItemContainer>
+    );
+  };
+
   return (
     <Container>
-      <GameButton
-        onPress={() => navigation.navigate("ThreeBalls")}
-        title="세 자리 야구"
-      />
-      <GameButton
-        onPress={() => navigation.navigate("FourBalls")}
-        title="네 자리 야구"
-      />
-      <GameButton
-        onPress={() => navigation.navigate("FiveBalls")}
-        title="다섯 자리 야구"
-      />
-      <RuleButton
-        onPress={() => navigation.navigate("Rules")}
-        title="게임 설명"
-      />
+      <MoveView>
+        <Carousel
+          ref={(c) => (carousel = c)}
+          data={DATA}
+          renderItem={_renderItem}
+          sliderWidth={SLIDER_WIDTH}
+          itemWidth={ITEM_WIDTH}
+          containerCustomStyle={{
+            marginTop: 50,
+          }}
+          inactiveSlideShift={10}
+          useScrollView={true}
+          // layout={"tinder"}
+          // layout={"stack"}
+        />
+      </MoveView>
     </Container>
   );
 };
