@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components/native";
-import { Dimensions, Alert, StyleSheet } from "react-native";
 import * as Font from "expo-font";
-const { width: WIDTH, height: HEIGHT } = Dimensions.get("screen");
 //////////////////// Style ////////////////////
 const ScrollContainer = styled.ScrollView`
   width: 100%;
@@ -45,14 +43,12 @@ const Text = styled.Text`
   margin: 25px 12px 0 15px;
   font-size: 20px;
   color: white;
-
   ${({ fontLoaded }) => fontLoaded && `font-family: BlackHanSans `}
 `;
 
 //////////////////// Components ////////////////////
 
 const Board = ({ results }) => {
-  console.log(results.length);
   const [fontLoaded] = Font.useFonts({
     BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
   });
@@ -70,17 +66,24 @@ const Board = ({ results }) => {
             </Text>
             <AnswerContainer>
               <AnswerText fontLoaded={fontLoaded}>{result.answer}</AnswerText>
-
               {result.strike === 0 && result.ball === 0 ? (
-                <Text fontLoaded={fontLoaded} style={{ color: "red" }}>
+                <Text fontLoaded={fontLoaded} style={{ color: "#b03a2e" }}>
                   아웃
+                </Text>
+              ) : result.strike === 0 && result.ball !== 0 ? (
+                <Text fontLoaded={fontLoaded} style={{ color: "#148f77" }}>
+                  {result.ball} 볼
+                </Text>
+              ) : result.strike !== 0 && result.ball === 0 ? (
+                <Text fontLoaded={fontLoaded} style={{ color: "#2e86c1" }}>
+                  {result.strike} 스트라이크
                 </Text>
               ) : (
                 <>
-                  <Text fontLoaded={fontLoaded} style={{ color: "gray" }}>
+                  <Text fontLoaded={fontLoaded} style={{ color: "#2e86c1" }}>
                     {result.strike} 스트라이크
                   </Text>
-                  <Text fontLoaded={fontLoaded} style={{ color: "gray" }}>
+                  <Text fontLoaded={fontLoaded} style={{ color: "#148f77" }}>
                     {result.ball} 볼
                   </Text>
                 </>

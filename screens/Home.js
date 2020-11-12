@@ -46,7 +46,7 @@ const Home = ({ navigation }) => {
   const [fontLoaded] = Font.useFonts({
     BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
   });
-  const _renderItem = ({ item }) => {
+  const renderItem = ({ item }) => {
     return (
       <ItemContainer>
         <GameButton onPress={() => navigation.navigate(`${item.name}`)}>
@@ -64,7 +64,7 @@ const Home = ({ navigation }) => {
         <Carousel
           ref={(c) => (carousel = c)}
           data={DATA}
-          renderItem={_renderItem}
+          renderItem={renderItem}
           sliderWidth={SLIDER_WIDTH}
           itemWidth={ITEM_WIDTH}
           containerCustomStyle={{
