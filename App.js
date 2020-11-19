@@ -24,6 +24,10 @@ function App() {
     const images = cacheImages([
       "https://images.unsplash.com/photo-1503104834685-7205e8607eb9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
       require("./assets/splash.png"),
+      require("./assets/homethree.png"),
+      require("./assets/homefour.png"),
+      require("./assets/homefive.png"),
+      require("./assets/homebg.png"),
     ]);
 
     const fonts = cacheFonts([Ionicons.font]);

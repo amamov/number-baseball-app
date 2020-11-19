@@ -16,6 +16,7 @@ export default ({ navigation, route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: name === "Home" ? "Black Balls" : "게임 설명",
+      headerShown: route.name === "Home" ? true : false,
     });
   }, [route]);
   return (
@@ -48,7 +49,7 @@ export default ({ navigation, route }) => {
         },
       }}
     >
-      <Tabs.Screen name="Home" component={Home} />
+      <Tabs.Screen name="Home" component={Home} options={{}} />
       <Tabs.Screen name="Rules" component={Rules} />
     </Tabs.Navigator>
   );

@@ -98,6 +98,7 @@ const deleteKey = "<";
 
 const ThreeBalls = ({
   status,
+  navigation,
   dispatch_accumulate_success,
   dispatch_accumulate_attempts,
   dispatch_init_status,
@@ -130,7 +131,8 @@ const ThreeBalls = ({
         setResults([]);
         setProblem(problemFactory(3));
         dispatch_accumulate_success(0);
-        Alert.alert("홈런!", "축하합니다!");
+        // Alert.alert("홈런!", "축하합니다!");
+        navigation.navigate("Wow");
       } else {
         setResults((prev) => [
           {

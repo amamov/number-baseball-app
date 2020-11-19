@@ -1,5 +1,8 @@
 import React, { useRef, useEffect } from "react";
-import { Animated } from "react-native";
+import { Animated, Dimensions } from "react-native";
+
+const SLIDER_WIDTH = Dimensions.get("window").width;
+const SLIDER_HEIGHT = Dimensions.get("window").height;
 
 const MoveView = (props) => {
   const moveOn = useRef(new Animated.Value(0.5)).current;
@@ -7,7 +10,7 @@ const MoveView = (props) => {
   useEffect(() => {
     Animated.timing(moveOn, {
       toValue: 40,
-      duration: 500,
+      duration: 2000,
       useNativeDriver: true,
     }).start();
   }, [moveOn]);
@@ -17,6 +20,7 @@ const MoveView = (props) => {
       style={{
         ...props.style,
         transform: [{ translateY: moveOn }],
+        height: `${SLIDER_HEIGHT}%`,
       }}
     >
       {props.children}

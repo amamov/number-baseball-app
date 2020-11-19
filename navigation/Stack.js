@@ -5,6 +5,7 @@ import Tabs from "./Tabs";
 import ThreeBalls from "../screens/ThreeBalls";
 import FourBalls from "../screens/FourBalls";
 import FiveBalls from "../screens/FiveBalls";
+import Wow from "../screens/Wow";
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,18 @@ export default () => {
         component={FiveBalls}
         options={{
           headerTitle: "Five Black Balls",
+        }}
+      />
+      <Stack.Screen
+        name="Wow"
+        component={Wow}
+        options={{
+          headerTitle: "성공!",
+          headerShown: false,
+          // cardStyle: { backgroundColor: "transparent" },
+          // cardOverlayEnabled: true,
+          animationEnabled: false,
+          // cardOverlay: true,
         }}
       />
     </Stack.Navigator>
