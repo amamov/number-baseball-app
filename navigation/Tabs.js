@@ -13,9 +13,10 @@ const getHeaderName = (route) =>
 
 export default ({ navigation, route }) => {
   const name = getHeaderName(route);
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: name === "Home" ? "Black Balls" : "게임 설명",
+      title: name === "Home" ? "Number Balls" : "게임 설명",
       headerShown: route.name === "Home" ? true : false,
     });
   }, [route]);
@@ -30,7 +31,6 @@ export default ({ navigation, route }) => {
             } else if (route.name === "Rules") {
               iconName += "help-circle-outline";
             }
-
             return (
               <Ionicons
                 name={iconName}
@@ -49,7 +49,7 @@ export default ({ navigation, route }) => {
         },
       }}
     >
-      <Tabs.Screen name="Home" component={Home} options={{}} />
+      <Tabs.Screen name="Home" component={Home} />
       <Tabs.Screen name="Rules" component={Rules} />
     </Tabs.Navigator>
   );

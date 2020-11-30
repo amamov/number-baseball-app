@@ -10,7 +10,7 @@ const MoveView = (props) => {
   useEffect(() => {
     Animated.timing(moveOn, {
       toValue: 40,
-      duration: 2000,
+      duration: 1000,
       useNativeDriver: true,
     }).start();
   }, [moveOn]);

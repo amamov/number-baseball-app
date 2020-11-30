@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
-import { Dimensions } from "react-native";
-import Carousel from "react-native-snap-carousel";
+import { Dimensions, Text } from "react-native";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 import styled from "styled-components/native";
 import MoveView from "../../animations/MoveView";
 import ImageContainer from "../../components/ImageContainer";
-import Pagination from "./Pagination";
+import FadeInOutView from "../../animations/FadeInOutView";
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const SLIDER_HEIGHT = Dimensions.get("window").height;
@@ -48,11 +48,6 @@ const Image2 = styled.Image`
   height: 40%;
 `;
 
-const Text = styled.Text`
-  color: white;
-  font-size: 20px;
-`;
-
 //////////////////// Components ////////////////////
 
 const DATA = [
@@ -64,20 +59,23 @@ const DATA = [
 const Home = ({ navigation }) => {
   const carouselRef = useRef(null);
   const [index, setIndex] = useState(0);
+
   const renderItem = ({ item }) => {
     return (
       <ItemContainer>
-        <GameButton onPress={() => navigation.navigate(`${item.name}`)}>
-          {`${item.name}` === "ThreeBalls" ? (
-            <Image1 source={require("../../assets/homethree.png")} />
-          ) : `${item.name}` === "FourBalls" ? (
-            <Image2 source={require("../../assets/homefour.png")} />
-          ) : (
-            `${item.name}` === "FiveBalls" && (
-              <Image2 source={require("../../assets/homefive.png")} />
-            )
-          )}
-        </GameButton>
+        <FadeInOutView>
+          <GameButton onPress={() => navigation.navigate(`${item.name}`)}>
+            {`${item.name}` === "ThreeBalls" ? (
+              <Image1 source={require("../../assets/homethree.png")} />
+            ) : `${item.name}` === "FourBalls" ? (
+              <Image2 source={require("../../assets/homefour.png")} />
+            ) : (
+              `${item.name}` === "FiveBalls" && (
+                <Image2 source={require("../../assets/homefive.png")} />
+              )
+            )}
+          </GameButton>
+        </FadeInOutView>
       </ItemContainer>
     );
   };
@@ -99,7 +97,27 @@ const Home = ({ navigation }) => {
             // layout={"tinder"}
             // layout={"stack"}
           />
-          <Pagination />
+          <Pagination
+            dotsLength={3}
+            activeDotIndex={index}
+            containerStyle={{
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+            }}
+            dotStyle={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              marginHorizontal: 8,
+              backgroundColor: "rgba(255, 255, 255, 0.92)",
+            }}
+            inactiveDotStyle={
+              {
+                // backgroundColor: "rgba(255, 255, 255, 0.92)",
+              }
+            }
+            inactiveDotOpacity={0.4}
+            inactiveDotScale={0.6}
+          />
         </FlexBox>
       </MoveView>
     </ImageContainer>

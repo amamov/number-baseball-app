@@ -3,9 +3,7 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "ios": "expo start --ios"
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
@@ -28,6 +26,7 @@
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-swiper": "^1.6.0",
     "react-native-typography": "^1.4.1",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.1",

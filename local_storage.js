@@ -2,13 +2,13 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 export const KEY = "amamov_yoon_sang_seok_is_sexy";
 
-export const set_local_data = (object) => {
-  AsyncStorage.setItem(KEY, JSON.stringify(object));
+export const set_local_data = (object, key = KEY) => {
+  AsyncStorage.setItem(key, JSON.stringify(object));
 };
 
-const get_local_data = async () => {
+const get_local_data = async (key = KEY) => {
   try {
-    const loaded_string_data = await AsyncStorage.getItem(KEY);
+    const loaded_string_data = await AsyncStorage.getItem(key);
     if (loaded_string_data) {
       const loaded_object_data = JSON.parse(loaded_string_data);
       return loaded_object_data;
