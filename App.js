@@ -12,10 +12,24 @@ import { loaded_data } from "./local_storage";
 
 const cacheImages = (images) =>
   images.map((image) => {
-    if (typeof image === "string") return Image.prefetch(image);
-    else return Asset.fromModule(image).downloadAsync();
+    if (typeof image === "string") {
+      // url image
+      return Image.prefetch(image);
+    } else {
+      // assets image
+      return Asset.fromModule(image).downloadAsync();
+    }
   });
-const cacheFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
+
+const cacheFonts = (fonts) =>
+  fonts.map((font) => {
+    if (typeof font === "number") {
+      // assets font
+      return Asset.fromModule(font).downloadAsync();
+    } else {
+      return Font.loadAsync(font);
+    }
+  });
 
 function App() {
   const [isReady, setIsReady] = useState(false);
@@ -44,7 +58,13 @@ function App() {
       require("./assets/rule/upArrow.png"),
     ]);
 
-    const fonts = cacheFonts([Ionicons.font]);
+    const fonts = cacheFonts([
+      Ionicons.font,
+      require("./assets/BlackHanSans-Regular.ttf"),
+      require("./assets/NotoSansMonoCJKkr-Bold.otf"),
+      require("./assets/Sunflower-Light.ttf"),
+      require("./assets/Sunflower-Medium.ttf"),
+    ]);
 
     return Promise.all([...images, ...fonts]);
   };
@@ -52,14 +72,12 @@ function App() {
   const onFinish = () => setIsReady(true);
 
   return isReady ? (
-    <>
-      <Provider store={store}>
-        <NavigationContainer>
-          <Stack init={init} />
-        </NavigationContainer>
-        <StatusBar barStyle="light-content" />
-      </Provider>
-    </>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack init={init} />
+      </NavigationContainer>
+      <StatusBar barStyle="light-content" />
+    </Provider>
   ) : (
     <AppLoading
       startAsync={loadAssets}

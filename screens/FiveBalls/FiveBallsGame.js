@@ -67,10 +67,6 @@ const ModalKepad = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const ModalText = styled.Text`
-  font-size: 30px;
-`;
-
 const Keypad = styled.View`
   flex-direction: row;
   justify-content: center;
