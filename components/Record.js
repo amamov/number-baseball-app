@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
 import * as Font from "expo-font";
-import { init_status } from "../store";
-import { loaded_data, clear_local_storage } from "../local_storage";
 
 //////////////////// Style ////////////////////
 const Container = styled.View`
@@ -12,7 +10,6 @@ const Container = styled.View`
   height: 80%;
   align-items: center;
   justify-content: space-evenly;
-  /* border: 1px solid gray; */
 `;
 
 const View = styled.View`
@@ -33,7 +30,7 @@ const Data = styled.Text`
 `;
 
 //////////////////// Components ////////////////////
-const Record = ({ balls, status, dispatch_init_status }) => {
+const Record = ({ balls, status }) => {
   const [fontLoaded] = Font.useFonts({
     BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
   });
@@ -76,10 +73,4 @@ const mapStateToProps = (state) => {
   return { status: state };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch_init_status: (data) => dispatch(init_status(data)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Record);
+export default connect(mapStateToProps, null)(Record);
