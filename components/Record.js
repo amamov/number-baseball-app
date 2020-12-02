@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
@@ -34,49 +34,34 @@ const Data = styled.Text`
 
 //////////////////// Components ////////////////////
 const Record = ({ balls, status, dispatch_init_status }) => {
-  const [init, setInit] = useState(false);
   const [fontLoaded] = Font.useFonts({
     BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
   });
-
-  useEffect(() => {
-    // clear_local_storage();
-    loaded_data._W && dispatch_init_status(loaded_data._W);
-    setInit(true);
-  }, [dispatch_init_status]);
 
   return (
     <Container>
       <View>
         <Text fontLoaded={fontLoaded}>성공 횟수</Text>
-        {init ? (
-          balls === 3 ? (
-            <Data fontLoaded={fontLoaded}>{status["0"].success}</Data>
-          ) : balls === 4 ? (
-            <Data fontLoaded={fontLoaded}>{status["1"].success}</Data>
-          ) : (
-            balls === 5 && (
-              <Data fontLoaded={fontLoaded}>{status["2"].success}</Data>
-            )
-          )
+        {balls === 3 ? (
+          <Data fontLoaded={fontLoaded}>{status["0"].success}</Data>
+        ) : balls === 4 ? (
+          <Data fontLoaded={fontLoaded}>{status["1"].success}</Data>
         ) : (
-          <Data fontLoaded={fontLoaded}>계산중...</Data>
+          balls === 5 && (
+            <Data fontLoaded={fontLoaded}>{status["2"].success}</Data>
+          )
         )}
       </View>
       <View>
         <Text fontLoaded={fontLoaded}>평균 횟수</Text>
-        {init ? (
-          balls === 3 ? (
-            <Data fontLoaded={fontLoaded}>{status["0"].avg_attempts}</Data>
-          ) : balls === 4 ? (
-            <Data fontLoaded={fontLoaded}>{status["1"].avg_attempts}</Data>
-          ) : (
-            balls === 5 && (
-              <Data fontLoaded={fontLoaded}>{status["2"].avg_attempts}</Data>
-            )
-          )
+        {balls === 3 ? (
+          <Data fontLoaded={fontLoaded}>{status["0"].avg_attempts}</Data>
+        ) : balls === 4 ? (
+          <Data fontLoaded={fontLoaded}>{status["1"].avg_attempts}</Data>
         ) : (
-          <Data fontLoaded={fontLoaded}>계산중...</Data>
+          balls === 5 && (
+            <Data fontLoaded={fontLoaded}>{status["2"].avg_attempts}</Data>
+          )
         )}
       </View>
     </Container>

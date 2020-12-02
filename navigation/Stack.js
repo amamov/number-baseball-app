@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as Font from "expo-font";
 import Tabs from "./Tabs";
@@ -9,13 +9,19 @@ import FourBallsGame from "../screens/FourBalls/FourBallsGame";
 import FiveBallsStart from "../screens/FiveBalls/FiveBallsStart";
 import FiveBallsGame from "../screens/FiveBalls/FiveBallsGame";
 import StartRules from "../screens/StartRules";
+import { connect } from "react-redux";
 
 const Stack = createStackNavigator();
 
-export default ({ init }) => {
+const StackNavigator = ({ localData, dispatch_init_status }) => {
   const [fontLoaded] = Font.useFonts({
     BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
   });
+
+  useEffect(() => {
+    // clear_local_storage();
+    localData && dispatch_init_status(loaded_data._W);
+  }, [dispatch_init_status]);
 
   return (
     <Stack.Navigator
@@ -38,7 +44,7 @@ export default ({ init }) => {
         }
       }
     >
-      {!init && <Stack.Screen name="start" component={StartRules} />}
+      {!localData && <Stack.Screen name="start" component={StartRules} />}
       <Stack.Screen name="Tabs" component={Tabs} />
       {/* 세 자리 */}
       <Stack.Screen name="ThreeBalls" component={ThreeBallsStart} />
@@ -78,3 +84,11 @@ export default ({ init }) => {
     </Stack.Navigator>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch_init_status: (data) => dispatch(init_status(data)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(StackNavigator);

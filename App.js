@@ -33,12 +33,13 @@ const cacheFonts = (fonts) =>
 
 function App() {
   const [isReady, setIsReady] = useState(false);
-  const [init, setInit] = useState(false);
+  const [localData, setLocalData] = useState(null);
 
-  const loadAssets = () => {
-    if (loaded_data._W) {
-      // 게임을 처음 시작하는 유저들에게 보여지는 화면을 설정
-      setInit(true);
+  const loadAssets = async () => {
+    const loadedData = await loaded_data._W;
+    if (loadedData) {
+      // 게임을 처음 시작하는 유저들에게 보여지는 화면을 설정 && localdata 불러오기
+      setLocalData(loadedData);
     }
 
     const images = cacheImages([
@@ -74,7 +75,7 @@ function App() {
   return isReady ? (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack init={init} />
+        <Stack localData={localData} />
       </NavigationContainer>
       <StatusBar barStyle="light-content" />
     </Provider>
