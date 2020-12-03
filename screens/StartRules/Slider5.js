@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import * as Font from "expo-font";
 import FadeInOutView from "../../animations/FadeInOutView";
+import { Platform } from "react-native";
 
 const Container = styled.View`
   flex: 1;
@@ -71,12 +72,14 @@ const BlueText = styled.Text`
 const GoHomeContainer = styled.View`
   width: 100%;
   align-items: center;
+  margin-top: ${Platform.OS === "ios" ? 0 : "20px"};
+  margin-bottom: ${Platform.OS === "ios" ? 0 : "20px"};
 `;
 
 const GoHomeButton = styled.TouchableOpacity`
   border: 2px solid white;
   border-radius: 25px;
-  padding: 5px 20px;
+  padding: ${Platform.OS === "ios" ? "5px 45px" : "0 20px"};
 `;
 
 const GoHomeText = styled.Text`
@@ -96,9 +99,17 @@ const Slider5 = ({ navigation }) => {
           <BlueText style={{ fontSize: 47 }} fontLoaded={fontLoaded}>
             예시
           </BlueText>
-          <Text1 fontLoaded={fontLoaded}>를</Text1>
+          {Platform.OS === "ios" ? (
+            <Text1 fontLoaded={fontLoaded}>를 </Text1>
+          ) : (
+            <Text1 fontLoaded={fontLoaded}>를 보여줘!</Text1>
+          )}
         </TextBox>
-        <Text2 fontLoaded={fontLoaded}>보여줘!</Text2>
+        {Platform.OS === "ios" ? (
+          <Text2 fontLoaded={fontLoaded}>보여줘!</Text2>
+        ) : null}
+      </Header>
+      {Platform.OS === "ios" ? (
         <NumberContainer>
           <NumberBox>
             <TextBox>
@@ -107,7 +118,7 @@ const Slider5 = ({ navigation }) => {
             </TextBox>
           </NumberBox>
         </NumberContainer>
-      </Header>
+      ) : null}
       <DescriptionBox>
         <Desciription fontLoaded={fontLoaded}>
           정답 숫자가 1 2 3 인 경우에

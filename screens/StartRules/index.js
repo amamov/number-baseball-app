@@ -7,41 +7,38 @@ import Slider3 from "./Slider3";
 import Slider4 from "./Slider4";
 import Slider5 from "./Slider5";
 
-const PrevButton = styled.View`
-  margin-top: 20px;
-`;
+const PrevButton = styled.View``;
 
-const NextButton = styled.View`
-  /* margin-bottom: 20px; */
-  /* border: 4px solid white; */
-`;
+const NextButton = styled.View``;
 
 const ButtonImage = styled.Image``;
 
 export default ({ navigation }) => (
   <Swiper
     style={styles.wrapper}
-    horizontal={false}
+    horizontal={true}
     showsPagination={false}
     bounces={true}
     loop={false}
     showsButtons={true}
     buttonWrapperStyle={{
-      flexDirection: "column",
+      flexDirection: "row",
       paddingHorizontal: 20,
       paddingVertical: 10,
     }}
     nextButton={
       <NextButton>
         <ButtonImage
-          source={require("../../assets/rule/downArrow.png")}
+          source={require("../../assets/rule/right.png")}
+          style={{ width: 25, height: 25 }}
         ></ButtonImage>
       </NextButton>
     }
     prevButton={
       <PrevButton>
         <ButtonImage
-          source={require("../../assets/rule/upArrow.png")}
+          source={require("../../assets/rule/left.png")}
+          style={{ width: 25, height: 25 }}
         ></ButtonImage>
       </PrevButton>
     }

@@ -54,9 +54,9 @@ function App() {
       require("./assets/rule/baseball.png"),
       require("./assets/rule/calculator.png"),
       require("./assets/rule/check.png"),
-      require("./assets/rule/downArrow.png"),
+      require("./assets/rule/right.png"),
       require("./assets/rule/sbo.png"),
-      require("./assets/rule/upArrow.png"),
+      require("./assets/rule/left.png"),
     ]);
 
     const fonts = cacheFonts([

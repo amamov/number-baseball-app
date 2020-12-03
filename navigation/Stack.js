@@ -10,6 +10,8 @@ import FiveBallsStart from "../screens/FiveBalls/FiveBallsStart";
 import FiveBallsGame from "../screens/FiveBalls/FiveBallsGame";
 import StartRules from "../screens/StartRules";
 import { connect } from "react-redux";
+import { loaded_data } from "../local_storage";
+import { init_status } from "../store";
 
 const Stack = createStackNavigator();
 
