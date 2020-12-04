@@ -6,6 +6,8 @@
     "privacy": "public",
     "platforms": ["ios", "android"],
     "orientation": "portrait",
+    "primaryColor": "#000000",
+    "backgroundColor": "#000000",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
@@ -16,8 +18,22 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#000000"
+    },
+    "androidNavigationBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#000000"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.amamov.nbnb",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.amamov.nbnb",
+      "versionCode": 1
     },
     "description": ""
   }
