@@ -27,7 +27,7 @@
       "backgroundColor": "#000000"
     },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.amamov.nbnb",
       "buildNumber": "1.0.0"
     },
