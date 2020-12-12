@@ -68,6 +68,7 @@ const FourBallsStart = ({ navigation }) => {
   const [fontLoaded] = Font.useFonts({
     BlackHanSans: require("../../assets/BlackHanSans-Regular.ttf"),
   });
+
   return (
     <ImageContainer src={require("../../assets/homebg.png")}>
       <MoveView>

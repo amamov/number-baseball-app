@@ -124,7 +124,7 @@ const FourBallsGame = ({
       if (goal) {
         setResults([]);
         setProblem(problemFactory(4));
-        dispatch_accumulate_success(0);
+        dispatch_accumulate_success(1);
         const randomMessage = getRandomMessage(message);
         Alert.alert("홈런!", `\n${randomMessage}`);
         navigation.navigate("FourBalls");
@@ -138,7 +138,7 @@ const FourBallsGame = ({
           },
           ...prev,
         ]);
-        dispatch_accumulate_attempts(0);
+        dispatch_accumulate_attempts(1);
       }
       setOutput({ one: "", two: "", three: "", four: "" });
     }
@@ -147,11 +147,11 @@ const FourBallsGame = ({
   const inputNumber = (key) => {
     if (key === deleteKey) {
       if (checkCountValue(output, "", 0)) {
-        setOutput((prev) => ({ ...prev, three: "" }));
+        setOutput((prev) => ({ ...prev, four: "" }));
       } else if (checkCountValue(output, "", 1)) {
-        setOutput((prev) => ({ ...prev, two: "" }));
+        setOutput((prev) => ({ ...prev, three: "" }));
       } else if (checkCountValue(output, "", 2)) {
-        setOutput((prev) => ({ ...prev, one: "" }));
+        setOutput((prev) => ({ ...prev, two: "" }));
       } else if (checkCountValue(output, "", 3)) {
         setOutput((prev) => ({ ...prev, one: "" }));
       }

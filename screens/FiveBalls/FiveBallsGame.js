@@ -111,10 +111,10 @@ const FiveBallsGame = ({
     BlackHanSans: require("../../assets/BlackHanSans-Regular.ttf"),
   });
 
-  // useEffect(() => {
-  //   // 개발 체크용
-  //   console.log("문제 : ", problem);
-  // }, [problem]);
+  useEffect(() => {
+    // 개발 체크용
+    console.log("문제 : ", problem);
+  }, [problem]);
 
   const onSubmit = () => {
     if (checkCountValue(output, "", 0)) {
@@ -130,7 +130,7 @@ const FiveBallsGame = ({
       if (goal) {
         setResults([]);
         setProblem(problemFactory(5));
-        dispatch_accumulate_success(0);
+        dispatch_accumulate_success(2);
         const randomMessage = getRandomMessage(message);
         Alert.alert("홈런!", `\n${randomMessage}`);
         navigation.navigate("FiveBalls");
@@ -144,7 +144,7 @@ const FiveBallsGame = ({
           },
           ...prev,
         ]);
-        dispatch_accumulate_attempts(0);
+        dispatch_accumulate_attempts(2);
       }
       setOutput({ one: "", two: "", three: "", four: "", five: "" });
     }

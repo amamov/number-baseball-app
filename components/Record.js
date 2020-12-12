@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "styled-components/native";
@@ -35,6 +35,10 @@ const Record = ({ balls, status }) => {
     BlackHanSans: require("../assets/BlackHanSans-Regular.ttf"),
   });
 
+  useEffect(() => {
+    console.log(status["1"]);
+  }, []);
+
   return (
     <Container>
       <View>
@@ -49,6 +53,7 @@ const Record = ({ balls, status }) => {
           )
         )}
       </View>
+
       <View>
         <Text fontLoaded={fontLoaded}>평균 횟수</Text>
         {balls === 3 ? (
