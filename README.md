@@ -7,13 +7,13 @@
 ## Demo
 
 <p align="center">
-<img src="docs/1.jpeg" alt="nbnb" />
+<img src="docs/1.jpeg" alt="nbnb" width="300px" />
 </p>
 
 <p align="center">
-<img src="docs/2.jpeg" alt="nbnb" />
+<img src="docs/2.jpeg" alt="nbnb"  width="300px" />
 </p>
 
 <p align="center">
-<img src="docs/3.jpeg" alt="nbnb" />
+<img src="docs/3.jpeg" alt="nbnb"  width="300px" />
 </p>
